@@ -1,74 +1,14 @@
-DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Smart Pop-Up | Early Access</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #e8f5f1, #d0ece7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-    }
-    .container {
-      background: #ffffff;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-    }
-    .logo {
-      width: 100px;
-      margin-bottom: 20px;
-    }
-    h1 {
-      color: #008060;
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-    p {
-      color: #444;
-      font-size: 15px;
-      margin-bottom: 25px;
-    }
-    input {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 14px;
-    }
-    button {
-      background-color: #008060;
-      color: white;
-      border: none;
-      padding: 14px;
-      width: 100%;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    button:hover {
-      background-color: #006f4f;
-    }
-    .message {
-      margin-top: 20px;
-      font-size: 14px;
-      color: green;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart PopUp – Early Access</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <img src="logo.png" alt="Smart Pop-Up Logo" class="logo" />
+    <img src="logo.png" alt="Smart PopUp Logo" class="logo" />
     <h1>We Can Boost Your Shopify Store Sales!</h1>
     <p>Sign up now for early access and get <strong>3 months FREE!</strong></p>
 
@@ -76,16 +16,31 @@ DOCTYPE html>
       <input type="text" name="name" placeholder="Your Name" required />
       <input type="email" name="email" placeholder="Your Email" required />
       <button type="submit">Join Now</button>
-      <div class="message" id="message"></div>
     </form>
+
+    <div id="countdown">
+      <h2>Launching in:</h2>
+      <div id="timer"></div>
+    </div>
+
+    <ul class="features">
+      <li>AI-driven product recommendations</li>
+      <li>Increase conversion rates effortlessly</li>
+      <li>No code required</li>
+    </ul>
+
+    <div class="testimonials">
+      <h3>What early users say:</h3>
+      <blockquote>"My sales doubled in just a week!" – Jane D.</blockquote>
+      <blockquote>"Finally a popup that actually works!" – Tom R.</blockquote>
+    </div>
   </div>
 
+  <script src="countdown.js"></script>
   <script>
-    const form = document.getElementById('signup-form');
-    const message = document.getElementById('message');
-
-    form.addEventListener('submit', function(e) {
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
       e.preventDefault();
+      const form = e.target;
       const data = {
         name: form.name.value,
         email: form.email.value
@@ -93,17 +48,14 @@ DOCTYPE html>
 
       fetch("https://script.google.com/macros/s/AKfycbzpuMXsApZARDtIKIyw5kMVxxuZ5sbLhd7xQ6HBPSptRaOoQ87A2V1hw58cwkstilcb/exec", {
         method: "POST",
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       })
       .then(res => res.text())
       .then(() => {
-        message.textContent = "Thanks for signing up!";
+        alert("Thanks for signing up!");
         form.reset();
       })
-      .catch(() => {
-        message.textContent = "There was a problem. Try again later.";
-        message.style.color = "red";
-      });
+      .catch(() => alert("Something went wrong. Please try again."));
     });
   </script>
 </body>
